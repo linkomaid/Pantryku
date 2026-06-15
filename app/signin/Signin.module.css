@@ -1,0 +1,76 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: var(--width);
+    height: var(--max-height);
+    text-align: left;
+
+
+    & .card {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        text-align: left;
+
+        & .cardHeader {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            & .cardTextHeader {
+                font-size: calc(var(--gap) * 2);
+                font-weight: bold;
+                margin-top: calc(var(--gap) / 4);
+            }
+        }
+
+        & .cardBody {
+            display: flex;
+            flex-direction: column;
+            padding: calc(var(--gap) * 1.25)  calc(var(--gap) * 1.5);
+            box-shadow: 0 1px 4px var(--deep-primary-shadow);
+            margin-top: calc(var(--gap) / 1);
+            border-radius: calc(var(--gap) * 1);
+
+
+            & input {
+                all: unset;
+                margin-top: calc(var(--gap) * .5);
+                border: 1px solid var(--deep-white);
+                background: var(--deep-white);
+                padding: calc(var(--gap) * .5) calc(var(--gap) * .75);
+                color: var(--deep-primary);
+                border-radius: calc(var(--gap) * .5);
+                transition: all .1s ease-in-out;
+
+                &:focus {
+                    border: 1px solid var(--primary);
+                    transition: all .2s ease-in-out;
+                }
+            }
+
+            & button {
+                all: unset;
+                margin-top: calc(var(--gap) * 2);
+                margin-bottom: calc(var(--gap) * 1);
+                width: var(--width);
+                background: var(--primary);
+                text-align: center;
+                padding: calc(var(--gap) * .5) 0;
+                color: var(--white);
+                border-radius: calc(var(--gap) * .5);
+                font-weight: 500;
+                cursor: pointer;
+            }
+        }
+
+        & .backButton {
+            margin-top: calc(var(--gap) * 2);
+            display: flex;
+            align-items: center;
+            opacity: .75;
+        }
+    }
+}
