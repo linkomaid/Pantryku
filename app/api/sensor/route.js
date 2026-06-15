@@ -35,7 +35,6 @@ export async function POST(request) {
 }
 
 export async function GET() {
-
     const { data, error } = await supabase
         .from("History")
         .select("*")

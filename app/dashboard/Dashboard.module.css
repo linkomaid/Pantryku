@@ -1,0 +1,92 @@
+.sideBar {
+    background: var(--deep-white);
+    width: max-content;
+    height: var(--max-height);
+    padding: calc(var(--gap) * 1.5) calc(var(--gap) * 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    & .sideBar__navigation {
+        display: flex;
+        gap: calc(var(--gap) * 2);
+        flex-direction: column;
+
+        & .sideBar__navigationItems {
+            display: flex;
+            position: relative;
+
+            & .sidebar__navIcon {
+                color: var(--primary);
+                cursor: pointer;
+
+                &:hover + .popOver {
+                    display: block;
+                }
+            }
+
+
+            & .popOver {
+                position: absolute;
+                top: -.35rem;
+                left: 2.5rem;
+                text-align: left;
+                background: var(--white);
+                border: 1px solid var(--silver);
+                padding: calc(var(--gap) * .5) calc(var(--gap) * 2);
+                color: var(--deep-primary);
+                border-radius: calc(var(--gap));
+                display: none;
+            }
+        }
+
+    }
+
+    & .bottomBar .logOut {
+        all: unset;
+        background: var(--deep-primary);
+        padding: calc(var(--gap) * .5) calc(var(--gap) * .5);
+        padding-bottom: calc(var(--gap) * .5 - 4px);
+        border-radius: calc(var(--gap) * 10);
+        color: var(--background);
+        cursor: pointer;
+    }
+
+}
+
+.container {
+    display: flex;
+    gap: calc(var(--gap) * 2);
+
+    & .headers {
+        padding: calc(var(--gap) * 2.25) calc(var(--gap) * 1.25);
+    }
+    & .currentCard {
+        display: flex;
+        align-items: center;
+        gap: calc(var(--gap) * 1);
+        width: var(--width);
+        padding: 0 calc(var(--gap) * 1.25);
+        margin-top: -12px;
+
+        & .card {
+            box-shadow: 0 1px 4px var(--deep-primary-shadow);
+            padding: calc(var(--gap) * 1) calc(var(--gap) * 2);
+            border-radius: calc(var(--gap) * .5);
+
+            & .textCard {
+                opacity: .5;
+            }
+
+            & .numberCard {
+                font-size: calc(var(--gap) * 2.5);
+                margin-top: calc(var(--gap) * .25);
+            }
+            & .miniText {
+                opacity: .3;
+                margin-top: calc(var(--gap) * .5);
+            }
+        }
+    }
+}
