@@ -56,3 +56,36 @@ export async function GET (request) {
 
     return NextResponse.json({ data: result }, { status: 200 });
 }
+
+export async function POST(request) {
+
+    try {
+
+        const body = await request.json();
+
+        const { nama_resep, bahan, steps, tags, author, deskripsi } = body;
+
+        const { data, error } = await supabase
+            .from("Resep")
+            .insert([
+                {
+                    nama_resep,
+                    bahan,
+                    steps,
+                    tags,
+                    author,
+                    deskripsi,
+                }
+            ])
+            .select();
+
+        if (error) {
+            return NextResponse.json({ ok: false, message: error.message }, { status: 500 });
+        }
+
+        return NextResponse.json({ ok: true, data });
+
+    } catch (err) {
+        return NextResponse.json({ ok: false, message: err.message }, { status: 500 });
+    }
+}

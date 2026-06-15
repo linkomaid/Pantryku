@@ -21,8 +21,15 @@ type Resep = {
 };
 
 export default function Recipe() {
-
     const [search, setSearch] = useState("");
+    const [open, setOpen] = useState(false);
+
+    const [form, setForm] = useState({
+        nama_resep: "",
+        deskripsi: "",
+        author: "",
+        tags: ""
+    });
 
     function useDebounce(value: string, delay: number) {
         const [debouncedValue, setDebouncedValue] = useState(value);
@@ -38,17 +45,70 @@ export default function Recipe() {
         return debouncedValue;
     }
 
-const debouncedSearch = useDebounce(search, 500);
+    const debouncedSearch = useDebounce(search, 500);
+
     const { data, error, isLoading } = useSWR(
         `/api/resep${debouncedSearch ? `?search=${debouncedSearch}` : ""}`,
-        fetcher, { dedupingInterval: 60000 }
+        fetcher,
+        { dedupingInterval: 60000 }
     );
 
     const resep: Resep[] = data?.data ?? [];
 
+    async function handleSubmit() {
+        const res = await fetch("/api/resep", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nama_resep: form.nama_resep,
+                deskripsi: form.deskripsi,
+                author: form.author,
+                tags: form.tags.split(",").map(t => t.trim())
+            })
+        });
+
+        const result = await res.json();
+
+        if (!res.ok) {
+            alert("Failed to add recipe: " + result.message);
+            return;
+        }
+
+        alert("Recipe added successfully!");
+
+        setOpen(false);
+        setForm({ nama_resep: "", deskripsi: "", author: "", tags: ""});
+    }
+
     return (
         <div className={styles.container}>
-             <div className={styles.sideBar}>
+
+            <button className={styles.modalButton} onClick={() => setOpen(true)}>
+                <svg  xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill={"currentColor"} viewBox={"0 0 24 24"}><path d="M3 13h8v8h2v-8h8v-2h-8V3h-2v8H3z"></path></svg>
+
+                Tambah
+            </button>
+
+            {open && (
+                <div className={styles.modal_ak}>
+                    <div className={styles.modal}>
+                        <input placeholder="Nama Resep" value={form.nama_resep} onChange={(e) => setForm({ ...form, nama_resep: e.target.value })}/>
+                        <input placeholder="Deskripsi" value={form.deskripsi} onChange={(e) => setForm({ ...form, deskripsi: e.target.value })}/>
+                        <input placeholder="Author" value={form.author} onChange={(e) => setForm({ ...form, author: e.target.value })}/>
+                        <input placeholder="Tags (comma separated)" value={form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value })}/>
+                        <button onClick={handleSubmit} className={styles.primary}>
+                            Submit
+                        </button>
+                        <button onClick={() => setOpen(false)} className={styles.secondary}>
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            <div className={styles.sideBar}>
                 <div className={styles.sideBar__header}>
                     <Image
                         src="/favicon.png"
@@ -83,7 +143,7 @@ const debouncedSearch = useDebounce(search, 500);
                     </button>
                 </div>
             </div>
-            
+
             <div className={styles.header}>
                 <h1 className={styles.headerText}>
                     Temukan Resep
@@ -119,7 +179,6 @@ const debouncedSearch = useDebounce(search, 500);
                         </div>
                     </div>
                 </div>
-
 
                 <div className={styles.cardContainer}>
 

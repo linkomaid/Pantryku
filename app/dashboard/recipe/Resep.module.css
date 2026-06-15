@@ -182,3 +182,77 @@
         }
     }
 }
+
+
+.modalButton {
+    all: unset;
+    position: absolute;
+    top: calc(var(--gap) * 2);
+    right: calc(var(--gap) * 2);
+    cursor: pointer;
+    background: var(--primary);
+    padding : calc(var(--gap) * .5) calc(var(--gap) * 1);
+    color: var(--white);
+    border-radius: calc(var(--gap) * 2);
+    display: flex;
+    align-items: center;
+    gap: calc(var(--gap) * .5);
+    font-weight: 500;
+}
+
+.modal_ak {
+    position: fixed;
+    width: var(--max-width);
+    height: var(--max-height);
+    background: var(--deep-primary-shadow);
+    z-index: 999;
+
+    & .modal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        background: var(--white);
+        padding: calc(var(--gap) * 1.25) calc(var(--gap) * 2);
+        border-radius: calc(var(--gap) * .75);
+
+        & input {
+                all: unset;
+                margin-top: calc(var(--gap) * .5);
+                border: 1px solid var(--deep-white);
+                background: var(--deep-white);
+                padding: calc(var(--gap) * .75) calc(var(--gap) * .75);
+                font-size: calc(var(--gap) * 1.25);
+                color: var(--deep-primary);
+                border-radius: calc(var(--gap) * .5);
+                transition: all .1s ease-in-out;
+
+                &:focus {
+                    border: 1px solid var(--primary);
+                    transition: all .2s ease-in-out;
+                }
+        }
+        & button {
+                all: unset;
+                margin-top: calc(var(--gap) * .5);
+                width: var(--width);
+                text-align: center;
+                padding: calc(var(--gap) * .5) 0;
+                border-radius: calc(var(--gap) * .5);
+                font-weight: 500;
+                cursor: pointer;
+        }
+
+        & .primary {
+            background: var(--primary);
+            color: var(--white);
+            margin-top: calc(var(--gap) * 1.25);
+        }
+
+        & .secondary {
+            opacity: .5;
+        }
+    }
+}
