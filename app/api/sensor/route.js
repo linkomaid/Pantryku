@@ -1,48 +1,67 @@
 import { NextResponse } from "next/server";
-
-let sensorData = null;
+import { supabase } from "@/lib/supabase";
 
 export async function POST(request) {
-    const body = await request.json();
+    try {
+        const body = await request.json();
 
-    console.log("ESP32 HIT:", body);
+        const { deviceID, temperature, humidity, aqi, tvoc, eco2 } = body;
 
-    const { deviceID, temperature, humidity } = body;
+        const sensorData = { uuid: deviceID,
+            history: {
+                aht21: { temperature, humidity },
+                ens160: { aqi, tvoc, eco2 }
+            }, created_at: new Date() };
 
-    sensorData = {
-        deviceID,
-        temperature,
-        humidity,
-        updated_at: new Date()
-    };
+        const { data, error } = await supabase
+            .from("History")
+            .insert([sensorData])
+            .select();
 
-    return NextResponse.json({
-        ok: true,
-        message: "ESP32 data received",
-        received: sensorData
-    });
+        if (error) {
+            return NextResponse.json(
+                { ok: false, message: error.message },
+                { status: 500 }
+            );
+        }
+
+        return NextResponse.json({ ok: true, message: "Sensor data stored", saved: data });
+
+    } catch (err) {
+        return NextResponse.json(
+            { ok: false, message: err.message },
+            { status: 500 }
+        );
+    }
 }
 
 export async function GET() {
-    if (!sensorData) {
-        return NextResponse.json({
-            connected: false,
-            message: "No ESP32 connected"
-        });
+
+    const { data, error } = await supabase
+        .from("History")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(1);
+
+    if (error) {
+        return NextResponse.json(
+            { connected: false, message: error.message }, 
+            { status: 500 }
+        );
     }
 
-    const lastUpdate = new Date(sensorData.updated_at).getTime();
-    const now = Date.now();
-
-    if (now - lastUpdate > 30000) {
-        return NextResponse.json({
-            connected: false,
-            message: "ESP32 offline"
-        });
+    if (!data || data.length === 0) {
+        return NextResponse.json({ connected:false, message: "No sensor data found" });
     }
+
+    const latest = data[0];
 
     return NextResponse.json({
         connected: true,
-        data: sensorData
+        data: {
+            uuid: latest.uuid,
+            ...latest.history,
+            created_at: latest.created_at
+        }
     });
 }
