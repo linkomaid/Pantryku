@@ -32,12 +32,13 @@
                 top: -.35rem;
                 left: 2.5rem;
                 text-align: left;
-                background: var(--white);
+                background: var(--white)!important;
                 border: 1px solid var(--silver);
                 padding: calc(var(--gap) * .5) calc(var(--gap) * 2);
                 color: var(--deep-primary);
                 border-radius: calc(var(--gap));
                 display: none;
+                z-index: 99;
             }
         }
 

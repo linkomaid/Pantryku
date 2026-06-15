@@ -7,15 +7,21 @@ export async function POST(request) {
 
         const { deviceID, temperature, humidity } = body;
 
-        const sensorData = { uuid: deviceID,
+        const sensorData = { 
+            uuid: deviceID,
             history: {
-                aht21: { temperature, humidity },
-            }, created_at: new Date() };
+                aht21: { 
+                    temperature, 
+                    humidity 
+                },
+            }, 
+            created_at: new Date() 
+        };
 
         const { data, error } = await supabase
-            .from("History")
-            .insert([sensorData])
-            .select();
+        .from("History")
+        .insert([sensorData])
+        .select();
 
         if (error) {
             return NextResponse.json(
@@ -24,7 +30,9 @@ export async function POST(request) {
             );
         }
 
-        return NextResponse.json({ ok: true, message: "Sensor data stored", saved: data });
+        return NextResponse.json(
+            { ok: true, message: "Sensor data stored", saved: data }
+        );
 
     } catch (err) {
         return NextResponse.json(
@@ -34,12 +42,15 @@ export async function POST(request) {
     }
 }
 
+
 export async function GET() {
+
     const { data, error } = await supabase
         .from("History")
         .select("*")
         .order("created_at", { ascending: false })
-        .limit(1);
+        .limit(50);
+
 
     if (error) {
         return NextResponse.json(
@@ -48,18 +59,24 @@ export async function GET() {
         );
     }
 
+
     if (!data || data.length === 0) {
-        return NextResponse.json({ connected:false, message: "No sensor data found" });
+        return NextResponse.json(
+            { connected:false, message:"No sensor data found"}
+        );
     }
 
-    const latest = data[0];
+
+    const history = data.map(item => ({
+        uuid: item.uuid,
+        ...item.history,
+        created_at: item.created_at
+    }));
+
 
     return NextResponse.json({
-        connected: true,
-        data: {
-            uuid: latest.uuid,
-            ...latest.history,
-            created_at: latest.created_at
-        }
+        connected:true,
+        data: history
     });
+
 }
