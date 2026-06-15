@@ -60,3 +60,140 @@
     display: flex;
     gap: calc(var(--gap) * 2);
 }
+
+& .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(var(--max-width) / 1.1);
+    padding: calc(var(--gap) * 1.75) calc(var(--gap) * .5);
+
+    & .leftHeader {
+        font-size: calc(var(--gap) * 1.75);
+        font-weight: bold;
+    }
+
+    & .rightHeader {
+        display: flex;
+        align-items: center;
+        gap: calc(var(--gap) * .75);
+
+        & .primary {
+            background: var(--secondary);
+            color: var(--white);
+        }
+
+        & .secondary {
+            border: 1px solid var(--secondary);
+            color: var(--secondary);    
+        }
+    }
+
+    & .rightHeader button {
+        all: unset;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding : calc(var(--gap) * .5) calc(var(--gap) * 1);
+        border-radius: calc(var(--gap) * 2);
+        display: flex;
+        align-items: center;
+        gap: calc(var(--gap) * .5);
+        font-weight: 500;
+    }
+
+}
+
+.modal_ak {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--max-width);
+    height: var(--max-height);
+    background: var(--deep-primary-shadow);
+    z-index: 999;
+
+    & .modal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        background: var(--white);
+        padding: calc(var(--gap) * 1.25) calc(var(--gap) * 2);
+        border-radius: calc(var(--gap) * .75);
+
+        & input {
+                all: unset;
+                margin-top: calc(var(--gap) * .5);
+                border: 1px solid var(--deep-white);
+                background: var(--deep-white);
+                padding: calc(var(--gap) * .75) calc(var(--gap) * .75);
+                font-size: calc(var(--gap) * 1.25);
+                color: var(--deep-primary);
+                border-radius: calc(var(--gap) * .5);
+                transition: all .1s ease-in-out;
+
+                &:focus {
+                    border: 1px solid var(--primary);
+                    transition: all .2s ease-in-out;
+                }
+        }
+        & button {
+                all: unset;
+                margin-top: calc(var(--gap) * .5);
+                width: var(--width);
+                text-align: center;
+                padding: calc(var(--gap) * .5) 0;
+                border-radius: calc(var(--gap) * .5);
+                font-weight: 500;
+                cursor: pointer;
+        }
+
+        & .primary {
+            background: var(--primary);
+            color: var(--white);
+            margin-top: calc(var(--gap) * 1.25);
+        }
+
+        & .secondary {
+            opacity: .5;
+        }
+    }
+}
+
+.itemList {
+    display: flex;
+    gap: calc(var(--gap) * 1);
+    margin-top: calc(var(--gap) * 2);
+    flex-wrap: wrap;
+
+    & .itemCard {
+        background: var(--deep-white);
+        padding: calc(var(--gap) * 1) calc(var(--gap) * 2);
+        border: 1px solid var(--silver);
+        border-radius: calc(var(--gap) * .75);
+        cursor: pointer;
+
+        & h3 {
+            text-transform: capitalize;
+            color: var(--deep-primary);
+        }
+
+        & .qty {
+            font-size: calc(var(--gap) * 2);
+            font-weight: bold;
+            text-align: center;
+            margin-top: calc(var(--gap) * .5);
+        }
+
+        & .status {
+            margin-top: calc(var(--gap) * .25);
+            font-weight: 500;
+            font-size: calc(var(--gap) * .9);
+            text-align: center;
+        }
+
+    }
+}
