@@ -59,7 +59,7 @@ export default function Dashboard() {
         fetchData();
 
         const interval = setInterval(fetchData, 3000);
-        
+
         return () => clearInterval(interval);
 
     }, []);
@@ -125,7 +125,6 @@ export default function Dashboard() {
         <div className={styles.container}>
 
             <div className={styles.sideBar}>
-
                 <div className={styles.sideBar__header}>
                     <Image
                         src="/favicon.png"
@@ -159,7 +158,6 @@ export default function Dashboard() {
                         </svg>
                     </button>
                 </div>
-
             </div>
 
 

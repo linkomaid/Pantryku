@@ -44,7 +44,6 @@ export async function GET (request) {
         });
     }
 
-    // 4. SINGLE ITEM (uuid detail)
     else if (data && data.thumbnail) {
         result = {
             ...data,

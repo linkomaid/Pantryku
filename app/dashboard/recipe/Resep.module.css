@@ -1,0 +1,184 @@
+.sideBar {
+    background: var(--deep-white);
+    width: max-content;
+    height: var(--max-height);
+    padding: calc(var(--gap) * 1.5) calc(var(--gap) * 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    & .sideBar__navigation {
+        display: flex;
+        gap: calc(var(--gap) * 2);
+        flex-direction: column;
+
+        & .sideBar__navigationItems {
+            display: flex;
+            position: relative;
+
+            & .sidebar__navIcon {
+                color: var(--primary);
+                cursor: pointer;
+
+                &:hover + .popOver {
+                    display: block;
+                }
+            }
+
+
+            & .popOver {
+                position: absolute;
+                top: -.35rem;
+                left: 2.5rem;
+                text-align: left;
+                background: var(--white)!important;
+                border: 1px solid var(--silver);
+                padding: calc(var(--gap) * .5) calc(var(--gap) * 2);
+                color: var(--deep-primary);
+                border-radius: calc(var(--gap));
+                display: none;
+                z-index: 99;
+            }
+        }
+
+    }
+
+    & .bottomBar .logOut {
+        all: unset;
+        background: var(--deep-primary);
+        padding: calc(var(--gap) * .5) calc(var(--gap) * .5);
+        padding-bottom: calc(var(--gap) * .5 - 4px);
+        border-radius: calc(var(--gap) * 10);
+        color: var(--background);
+        cursor: pointer;
+    }
+
+}
+
+.container {
+    display: flex;
+    gap: calc(var(--gap) * 2);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: var(--max-width);
+    margin-top: calc(var(--gap) * 2.75);
+
+    & .headerText {
+        color: var(--deep-primary);
+        font-size: calc(var(--gap) * 4);
+    }
+
+    & .headerDesc {
+        margin-top: calc(var(--gap) * .75);
+        width: calc(var(--width) / 2);
+        color: var(--secondary);
+        font-size: calc(var(--gap) * 1.25);
+        opacity: .85;
+    }
+
+    & .searchBar {
+        box-shadow: 0 1px 4px var(--deep-primary-shadow);
+        border-radius: calc(var(--gap) * .5);
+        margin-top: calc(var(--gap) * 2.25);
+        padding: 0 calc(var(--gap) * 1);
+        padding-left: calc(var(--gap) * .5 - 12px);
+
+
+        & .filterButton {
+            all: unset;
+            color: var(--deep-primary);
+            padding: calc(var(--gap) * 0.75) calc(var(--gap) * .5);
+            cursor: pointer;
+            padding-left: calc(var(--gap) * 1.25 - 4px);
+        }
+
+        & .searchBars {
+            background: var(--deep-white);
+            border-radius: calc(var(--gap) * .25);
+
+            & .icon {
+                padding: calc(var(--gap) * 0.2) calc(var(--gap) * .25 - 4px);
+                padding-top: calc(var(--gap) * 0.5);
+                padding-left: calc(var(--gap) * 1 - 4px);
+                color: var(--secondary);
+            }
+
+            & .inputBar {
+                all: unset;
+                padding: calc(var(--gap) * .5) calc(var(--gap) * .5);
+                padding-top: calc(var(--gap) * .5);
+                letter-spacing: .5px;
+                width: calc(var(--max-width) / 4);
+                text-align: left;
+                color: var(--deep-primary);
+            }
+        }
+    }
+
+    & .searchBars, .searchBar, .leftContainer {
+        display: flex;
+        align-items: center;
+        gap: calc(var(--gap) * .5)
+    }
+}
+
+.cardContainer {
+    display: flex;
+    margin: calc(var(--gap) * 4.5) calc(var(--gap) * 2);
+    gap: calc(var(--gap) * 1.25);
+    margin-bottom: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    height: calc(var(--max-height) / 2.15);
+
+    & .card {
+        box-shadow: 0 1px 4px var(--deep-primary-shadow);
+        border-radius: calc(var(--gap) * 1);
+        text-align: left;
+
+        & .cardImage {
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
+        }
+
+        & .cardHeader {
+            padding: calc(var(--gap) * .75) calc(var(--gap) * 1);
+
+            & .cardTitle {
+                font-size: calc(var(--gap) * 1.5);
+                font-weight: 600;
+                line-height: 1.2;
+                height: calc(var(--max-height) * .045);
+            }
+
+            & .cardDescription {
+                margin-top: calc(var(--gap) * .25);
+                opacity: .75;
+                height: calc(var(--max-height) * .05);
+            }
+
+            & .tagContainer {
+                display: flex;
+                gap: calc(var(--gap) * .25);
+                margin-top: calc(var(--gap) * .75);
+
+                & .tags {
+                    background: var(--secondary);
+                    padding: calc(var(--gap) * .25) calc(var(--gap) * .75);
+                    color: var(--white);
+                    font-size: calc(var(--gap) * .75);
+                    text-transform: capitalize;
+                    border-radius: calc(var(--gap) * 10);
+                }
+            }
+        }
+    }
+}
