@@ -5,12 +5,11 @@ export async function POST(request) {
     try {
         const body = await request.json();
 
-        const { deviceID, temperature, humidity, aqi, tvoc, eco2 } = body;
+        const { deviceID, temperature, humidity } = body;
 
         const sensorData = { uuid: deviceID,
             history: {
                 aht21: { temperature, humidity },
-                ens160: { aqi, tvoc, eco2 }
             }, created_at: new Date() };
 
         const { data, error } = await supabase
